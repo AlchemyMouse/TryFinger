@@ -9,7 +9,7 @@ namespace TryFinger
 
         public ModConfig(ConfigFile c)
         {
-            TryFinger = c.Bind<string>("Input", "TryFinger", "t", "Flip the bird");
+            TryFinger = c.Bind<string>("Input", "TryFinger", "t", "try finger, but hole");
         }
     }
 }
