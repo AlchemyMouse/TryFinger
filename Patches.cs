@@ -5,12 +5,26 @@ namespace TryFinger
 {
     // add a finger manager
     [HarmonyPatch(typeof(GunControl))]
-    class GiveGun
+    class GiveGun 
     {
         [HarmonyPatch("Start")]
         static void Postfix(GunControl __instance)
         {
             __instance.gameObject.AddComponent<FingerManager>();
+        }
+    }
+
+    // grant the finger whenever the guns list updates
+    [HarmonyPatch(typeof(GunSetter))]
+    class ResetCheck
+    {
+        [HarmonyPatch("ResetWeapons")]
+        public static void Postfix()
+        {
+            if (MonoSingleton<FingerManager>.Instance)
+            {
+                MonoSingleton<FingerManager>.Instance.GrantFinger();
+            }
         }
     }
 

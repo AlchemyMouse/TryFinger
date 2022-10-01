@@ -14,16 +14,8 @@ namespace TryFinger
         private void Start()
         {
             gc = this.gameObject.GetComponent<GunControl>();
-            GameObject tf = Object.Instantiate<GameObject>(Plugin.fingerbundle.LoadAsset<GameObject>("TheFinger"), this.gameObject.transform);
-            tf.AddComponent<WeaponPos>();
-            tf.AddComponent<WeaponIdentifier>();
-            tf.SetActive(false);
-
-            gc.allWeapons.Add(tf);
-            fingerBox.Add(tf);
             gc.slots.Add(fingerBox);
-            gc.UpdateWeaponList();
-            idx = gc.slots.IndexOf(fingerBox) + 1;
+            this.GrantFinger();
         }
 
         private void Update()
@@ -35,6 +27,19 @@ namespace TryFinger
                     gc.SwitchWeapon(idx, fingerBox, false, false);
                 }
             }
+        }
+
+        public void GrantFinger()
+        {
+            GameObject tf = Object.Instantiate<GameObject>(Plugin.fingerbundle.LoadAsset<GameObject>("TheFinger"), this.gameObject.transform);
+            tf.AddComponent<WeaponPos>();
+            tf.AddComponent<WeaponIdentifier>();
+            tf.SetActive(false);
+
+            gc.allWeapons.Add(tf);
+            fingerBox.Add(tf);
+            gc.UpdateWeaponList();
+            idx = gc.slots.IndexOf(fingerBox) + 1;
         }
     }
 }
