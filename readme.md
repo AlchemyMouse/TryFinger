@@ -2,7 +2,7 @@
 ## Installation
 1. Install [BepInEx](https://docs.bepinex.dev/articles/user_guide/installation/index.html)
 	- TryFinger was made with 5.4.21.0 but any 5.x should work
-2. Head to Releases and drop the latest `TryFinger.dll` into `ULTRAKILL/BepInEx/plugins/`.
+2. Head to [Releases](https://github.com/AlchemyMouse/TryFinger/releases) and drop the latest `TryFinger.dll` into `ULTRAKILL/BepInEx/plugins/`.
 
 ## About
 A simple mod that enables V1 to perform a particularly rude gesture.
