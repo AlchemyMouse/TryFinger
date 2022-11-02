@@ -7,14 +7,12 @@ namespace TryFinger
     class FingerManager : MonoSingleton<FingerManager>
     {
         GunControl gc;
-        public List<GameObject> fingerBox = new List<GameObject>();
-        int idx;
+        GameObject tf;
 
 
         private void Start()
         {
             gc = this.gameObject.GetComponent<GunControl>();
-            gc.slots.Add(fingerBox);
             this.GrantFinger();
         }
 
@@ -22,24 +20,23 @@ namespace TryFinger
         {
             if (MonoSingleton<ModInput>.Instance && MonoSingleton<ModInput>.Instance.TryFinger.WasPerformedThisFrame)
             {
-                if (gc.currentSlot != idx)
+                if (tf.activeSelf)
                 {
-                    gc.SwitchWeapon(idx, fingerBox, false, false);
+                    gc.YesWeapon();
+                    tf.SetActive(false);
+                } 
+                else
+                {
+                    gc.NoWeapon();
+                    tf.SetActive(true);
                 }
             }
         }
 
         public void GrantFinger()
         {
-            GameObject tf = Object.Instantiate<GameObject>(Plugin.fingerbundle.LoadAsset<GameObject>("TheFinger"), this.gameObject.transform);
-            tf.AddComponent<WeaponPos>();
-            tf.AddComponent<WeaponIdentifier>();
+            tf = Object.Instantiate<GameObject>(Plugin.fingerbundle.LoadAsset<GameObject>("TheFinger"), this.gameObject.transform);
             tf.SetActive(false);
-
-            gc.allWeapons.Add(tf);
-            fingerBox.Add(tf);
-            gc.UpdateWeaponList();
-            idx = gc.slots.IndexOf(fingerBox) + 1;
         }
     }
 }
