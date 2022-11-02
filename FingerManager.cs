@@ -20,15 +20,17 @@ namespace TryFinger
         {
             if (MonoSingleton<ModInput>.Instance && MonoSingleton<ModInput>.Instance.TryFinger.WasPerformedThisFrame)
             {
-                if (tf.activeSelf)
-                {
-                    gc.YesWeapon();
-                    tf.SetActive(false);
-                } 
-                else
+                if (gc.currentWeapon.activeSelf)
                 {
                     gc.NoWeapon();
                     tf.SetActive(true);
+                } 
+                else
+                {
+                    if (tf.activeSelf) {
+                        gc.YesWeapon();
+                        tf.SetActive(false);
+                    }
                 }
             }
         }
